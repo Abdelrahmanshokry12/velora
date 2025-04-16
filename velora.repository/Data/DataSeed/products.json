@@ -1,0 +1,228 @@
+[
+  {
+    "Name": "CeraVe Burn Relief Solution ",
+    "Description": "Soothes and heals minor burns and sunburns.",
+    "Price": 282,
+    "PictureUrl": "/images/products/Mebo.jpg",
+    "ProductTypeId": 6,
+    "ProductBrandId": 5,
+    "SkinType": "Normal"
+  },
+  {
+    "Name": "CeraVe Skin Repair Solution ",
+    "Description": "Promotes healing of damaged or irritated skin.",
+    "Price": 159,
+    "PictureUrl": "/images/products/cerave_skin_repair.jpg",
+    "ProductTypeId": 9,
+    "ProductBrandId": 5,
+    "SkinType": "All Skin Types"
+  },
+  {
+    "Name": "Bioderma Hyperpigmentation Solution ",
+    "Description": "Fades dark spots and evens skin tone.",
+    "Price": 364,
+    "PictureUrl": "/images/products/bioderma_hyperpigmentation.jpg",
+    "ProductTypeId": 2,
+    "ProductBrandId": 7,
+    "SkinType": "Normal"
+  },
+  {
+    "Name": "La Roche-Posay Psoriasis Relief Solution ",
+    "Description": "Reduces scaling and irritation for psoriasis-prone skin.",
+    "Price": 456,
+    "PictureUrl": "/images/products/la_roche-posay_psoriasis_relief.jpg",
+    "ProductTypeId": 8,
+    "ProductBrandId": 6,
+    "SkinType": "Dry"
+  },
+  {
+    "Name": "The Ordinary Hydration Solution ",
+    "Description": "Deeply moisturizes and restores the skin barrier.",
+    "Price": 302,
+    "PictureUrl": "/images/products/the_ordinary_hydration.jpg",
+    "ProductTypeId": 4,
+    "ProductBrandId": 4,
+    "SkinType": "Combination"
+  },
+  {
+    "Name": "Bioderma Psoriasis Relief Solution ",
+    "Description": "Reduces scaling and irritation for psoriasis-prone skin.",
+    "Price": 157,
+    "PictureUrl": "/images/products/bioderma_psoriasis_relief.jpg",
+    "ProductTypeId": 8,
+    "ProductBrandId": 7,
+    "SkinType": "Combination"
+  },
+  {
+    "Name": "Nefertari Skin Repair Solution ",
+    "Description": "Promotes healing of damaged or irritated skin.",
+    "Price": 249,
+    "PictureUrl": "/images/products/nefertari_skin_repair.jpg",
+    "ProductTypeId": 9,
+    "ProductBrandId": 3,
+    "SkinType": "Dry"
+  },
+  {
+    "Name": "Eva Cosmetics Skin Repair Solution ",
+    "Description": "Promotes healing of damaged or irritated skin.",
+    "Price": 190,
+    "PictureUrl": "/images/products/eva_cosmetics_skin_repair.jpg",
+    "ProductTypeId": 9,
+    "ProductBrandId": 1,
+    "SkinType": "Normal"
+  },
+  {
+    "Name": "Vichy Acne Treatment Solution",
+    "Description": "Helps clear acne, reduce blemishes and unclog pores.",
+    "Price": 231,
+    "PictureUrl": "/images/products/vichy_acne_treatment.jpg",
+    "ProductTypeId": 1,
+    "ProductBrandId": 8,
+    "SkinType": "Dry"
+  },
+  {
+    "Name": "La Roche-Posay Eczema Care Solution ",
+    "Description": "Calms inflammation and relieves itching.",
+    "Price": 448,
+    "PictureUrl": "/images/products/la_roche-posay_eczema_care.jpg",
+    "ProductTypeId": 7,
+    "ProductBrandId": 6,
+    "SkinType": "Dry"
+  },
+  {
+    "Name": "Pharmaceris Acne Treatment Solution",
+    "Description": "Helps clear acne, reduce blemishes and unclog pores.",
+    "Price": 93,
+    "PictureUrl": "/images/products/pharmaceris_acne_treatment.jpg",
+    "ProductTypeId": 1,
+    "ProductBrandId": 10,
+    "SkinType": "Normal"
+  },
+  {
+    "Name": "Pharmaceris Acne cream",
+    "Description": "Helps clear acne, reduce blemishes and unclog pores.",
+    "Price": 162,
+    "PictureUrl": "/images/products/pharmaceris_acne_cream.jpg",
+    "ProductTypeId": 1,
+    "ProductBrandId": 10,
+    "SkinType": "Sensitive"
+  },
+  {
+    "Name": "The Ordinary Sun Protection Solution ",
+    "Description": "Protects the skin from harmful UV rays.",
+    "Price": 357,
+    "PictureUrl": "/images/products/the_ordinary_sun_protection.jpg",
+    "ProductTypeId": 3,
+    "ProductBrandId": 4,
+    "SkinType": "Normal"
+  },
+  {
+    "Name": "Bioderma Oil Control Solution",
+    "Description": "Controls excess oil and prevents shiny skin.",
+    "Price": 433,
+    "PictureUrl": "/images/products/bioderma_oil_control.jpg",
+    "ProductTypeId": 10,
+    "ProductBrandId": 7,
+    "SkinType": "Sensitive"
+  },
+  {
+    "Name": "CeraVe Acne Treatment Solution ",
+    "Description": "Helps clear acne, reduce blemishes and unclog pores.",
+    "Price": 429,
+    "PictureUrl": "/images/products/cerave_acne_treatment.jpg",
+    "ProductTypeId": 1,
+    "ProductBrandId": 5,
+    "SkinType": "All Skin Types"
+  },
+    {
+        "Name": "Eva Cosmetics Hydration Solution ",
+        "Description": "Deeply moisturizes and restores the skin barrier.",
+        "Price": 369,
+        "PictureUrl": "/images/products/eva_cosmetics_hydration.jpg",
+        "ProductTypeId": 4,
+        "ProductBrandId": 1,
+        "SkinType": "Dry"
+    },
+  {
+    "Name": "Eva Cosmetics Skin Repair Solution ",
+    "Description": "Promotes healing of damaged or irritated skin.",
+    "Price": 492,
+    "PictureUrl": "/images/products/eva_cosmetics_skin_repair.jpg",
+    "ProductTypeId": 9,
+    "ProductBrandId": 1,
+    "SkinType": "Dry"
+  },
+  {
+    "Name": "Eva Cosmetics Hyperpigmentation Solution ",
+    "Description": "Fades dark spots and evens skin tone.",
+    "Price": 361,
+    "PictureUrl": "/images/products/eva_cosmetics_hyperpigmentation.jpg",
+    "ProductTypeId": 2,
+    "ProductBrandId": 1,
+    "SkinType": "Oily"
+  },
+  {
+    "Name": "Eva Cosmetics Anti-Aging Solution ",
+    "Description": "Reduces the appearance of fine lines and wrinkles.",
+    "Price": 395,
+    "PictureUrl": "/images/products/eva_cosmetics_anti-aging.jpg",
+    "ProductTypeId": 5,
+    "ProductBrandId": 1,
+    "SkinType": "Dry"
+  },
+  {
+    "Name": "Pharmaceris Anti-Aging Solution ",
+    "Description": "Reduces the appearance of fine lines and wrinkles.",
+    "Price": 195,
+    "PictureUrl": "/images/products/pharmaceris_anti-aging.jpg",
+    "ProductTypeId": 5,
+    "ProductBrandId": 10,
+    "SkinType": "Oily"
+  },
+  {
+    "Name": "Pharmaceris Skin Repair Solution ",
+    "Description": "Promotes healing of damaged or irritated skin.",
+    "Price": 168,
+    "PictureUrl": "/images/products/pharmaceris_skin_repair.jpg",
+    "ProductTypeId": 9,
+    "ProductBrandId": 10,
+    "SkinType": "Normal"
+  },
+  {
+    "Name": "La Roche-Posay Hydration Solution ",
+    "Description": "Deeply moisturizes and restores the skin barrier.",
+    "Price": 162,
+    "PictureUrl": "/images/products/la_roche-posay_hydration.jpg",
+    "ProductTypeId": 4,
+    "ProductBrandId": 6,
+    "SkinType": "Sensitive"
+  },
+  {
+    "Name": "Vichy Skin Repair Solution",
+    "Description": "Promotes healing of damaged or irritated skin.",
+    "Price": 113,
+    "PictureUrl": "/images/products/vichy_skin_repair.jpg",
+    "ProductTypeId": 9,
+    "ProductBrandId": 8,
+    "SkinType": "Dry"
+  },
+  {
+    "Name": "Bioderma Anti-Aging Solution",
+    "Description": "Reduces the appearance of fine lines and wrinkles.",
+    "Price": 379,
+    "PictureUrl": "/images/products/bioderma_anti-aging.jpg",
+    "ProductTypeId": 5,
+    "ProductBrandId": 7,
+    "SkinType": "Combination"
+  },
+  {
+    "Name": "La Roche Posay Sun Protection Solution ",
+    "Description": "Protects the skin from harmful UV rays.",
+    "Price": 454,
+    "PictureUrl": "/images/products/Sunscreen_la_roche_posay.jpg",
+    "ProductTypeId": 3,
+    "ProductBrandId": 3,
+    "SkinType": "Combination"
+  }
+   
+]
