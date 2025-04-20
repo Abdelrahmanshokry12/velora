@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using velora.core.Data;
 
 namespace velora.repository.Data.configurations
@@ -13,13 +8,40 @@ namespace velora.repository.Data.configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasOne(P => P.ProductBrand).WithMany().HasForeignKey(P => P.ProductBrandId);
-            builder.HasOne(P => P.ProductType).WithMany().HasForeignKey(p=> p.ProductTypeId);
-            builder.Property(p=> p.Name).IsRequired().HasMaxLength(128);
-            builder.Property(p => p.Description).IsRequired();
-            builder.Property(p=>p.PictureUrl).IsRequired();
-            builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
-            builder.Property(p => p.SkinType).IsRequired();
+            builder.Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(128);
+
+            builder.Property(p => p.Concern)
+                .IsRequired()
+                .HasMaxLength(64);
+
+            builder.Property(p => p.Description)
+                .IsRequired();
+
+            builder.Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
+
+            builder.Property(p => p.PictureUrl)
+                .IsRequired();
+
+            builder.Property(p => p.ProductCategoryId)
+                .IsRequired();
+
+            builder.HasOne(p => p.ProductCategory)
+                .WithMany()
+                .HasForeignKey(p => p.ProductCategoryId);
+
+            builder.Property(p => p.ProductBrandId)
+                .IsRequired();
+
+            builder.HasOne(p => p.ProductBrand)
+                .WithMany()
+                .HasForeignKey(p => p.ProductBrandId);
+
+            builder.Property(p => p.SkinType)
+                .IsRequired();
+
         }
     }
 }

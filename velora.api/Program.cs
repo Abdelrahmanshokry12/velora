@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using velora.core.Repositories;
-using velora.repository;
-using velora.repository.Data;
+using velora.api.Extensions;
+using velora.core.Data;
+using Microsoft.Extensions.Logging;
+using velora.repository.Data.Contexts;
+using velora.services.Services.Seeders;
+using velora.api.Helper;
 
 namespace velora.api
 {
@@ -15,33 +17,28 @@ namespace velora.api
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+       
             builder.Services.AddDbContext<StoreContext>(Options =>
             {
                 Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            builder.Services.AddDbContext<StoreIdentityDBContext>(Options =>
+            {
+                Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+
+            builder.Services.AddApplicationService(builder.Configuration);
+            builder.Services.AddIdentityService(builder.Configuration);
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerDocumentation();
 
             var app = builder.Build();
 
-
-            using var scope = app.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            var LoggerFactory = services.GetRequiredService<ILoggerFactory>();
-            try
-            {
-                var dbContext = services.GetRequiredService<StoreContext>();
-                await dbContext.Database.MigrateAsync();
-                await StoreContextSeed.SeedAsync(dbContext);
-            }
-            catch (Exception ex)
-            {
-                var Logger = LoggerFactory.CreateLogger<Program>();
-                Logger.LogError(ex, "An Error Occured During Appling The Migration");
-
-            }
+            await ApplySeeding.ApplySeedingAsync(app);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -51,12 +48,10 @@ namespace velora.api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }

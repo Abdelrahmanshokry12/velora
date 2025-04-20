@@ -1,34 +1,57 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using velora.core.Data;
-using velora.core.Repositories;
-using velora.core.Specifications;
+using velora.repository.Specifications.ProductSpecs;
+using velora.services.Services.ProductService;
+using velora.services.Services.ProductService.Dto;
 
 namespace velora.api.Controllers
 {
     public class ProductsController : APIBaseController
     {
-        private readonly IGenericRepository<Product> _productRepo;
+        private readonly IProductService _productService;
 
-        public ProductsController(IGenericRepository<Product> ProductRepo)
+        public ProductsController(IProductService productService)
         {
-            _productRepo = ProductRepo;
+            _productService = productService;
         }
 
+        // 🔎 Get All Products with Filtering, Paging
         [HttpGet]
-       public async Task<ActionResult<IEnumerable<Product>>> GetProducts() 
+        public async Task<IActionResult> GetAll([FromQuery] ProductSpecification filters)
         {
-            var Spec = new ProductWithBrandAndTypeSpecifications();
-            var Products = await _productRepo.GetAllWithSpecAsync(Spec);
-            return Ok(Products);
+            var products = await _productService.GetAllProductsAsync(filters);
+            var count = await _productService.GetTotalCountAsync(filters);
+
+            var response = new
+            {
+                pageIndex = filters.PageIndex,
+                pageSize = filters.PageSize,
+                count ,
+                data = products
+            };
+
+            return Ok(response);
         }
+
+        // 🔍 Get Single Product by ID
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var Spec = new ProductWithBrandAndTypeSpecifications(id);
-            var product = await _productRepo.GetByIdWithSpecAsync(Spec);
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product == null) return NotFound();
+
             return Ok(product);
         }
-       
+
+        //// ✏️ Add New Product (optional - Admin panel)
+        //[HttpPost]
+        //public async Task<IActionResult> CreateProduct([FromBody] ProductDto dto)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    await _productService.CreateProductAsync(dto);
+        //    return StatusCode(201);
+        //}
     }
 }
