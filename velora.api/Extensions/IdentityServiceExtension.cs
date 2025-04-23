@@ -35,12 +35,9 @@ namespace velora.api.Extensions
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = _configuration["Token:Issuer"],
                         ValidAudience = _configuration["Token:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:Key"]))
                     };
                 });
-
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<ITokenService, TokenService>();
 
             return services;
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Store.Services.HandlerResponses;
 using velora.core.Entities.IdentityEntities;
 using velora.services.Services.AuthService;
 using velora.services.Services.AuthService.Dto;
@@ -22,7 +23,7 @@ namespace velora.api.Controllers
         {
             var personDto = await _authService.RegisterAsync(registerDto ,role);
             if (personDto == null)
-                return BadRequest("Email already exists or registration failed");
+                return BadRequest(new CustomException(400, "Email already exists or registration failed"));
 
             return Ok(personDto);
         }
@@ -32,7 +33,7 @@ namespace velora.api.Controllers
         {
             var personDto = await _authService.LoginAsync(loginDto, role);
             if (personDto == null)
-                return Unauthorized("Invalid email or password");
+                return BadRequest(new CustomException(400, "Email Does not Exist"));
 
             return Ok(personDto);
         }

@@ -50,6 +50,7 @@ namespace velora.api
             }
 
 
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

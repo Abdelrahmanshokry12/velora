@@ -11,11 +11,10 @@ namespace velora.api.Extensions
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Velora API", Version = "v1" });
                 options.UseInlineDefinitionsForEnums();
 
-                var jwtSecurityScheme = new OpenApiSecurityScheme
+                var SecurityScheme = new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
                     Scheme = "bearer",
-                    BearerFormat = "JWT",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
                     Description = "Enter 'Bearer {token}' (include the word 'Bearer' and a space before the token)",
@@ -27,12 +26,12 @@ namespace velora.api.Extensions
                     }
                 };
 
-                options.AddSecurityDefinition("Bearer", jwtSecurityScheme);
+                options.AddSecurityDefinition("Bearer", SecurityScheme);
 
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
-                        jwtSecurityScheme,
+                        SecurityScheme,
                         new string[] {}
                     }
                 });
