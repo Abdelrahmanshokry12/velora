@@ -2,13 +2,11 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using velora.repository.Data.Contexts;
+using velora.core.Data.Contexts;
 
 #nullable disable
 
-namespace velora.repository.Data.Migrations
+namespace velora.core.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
     partial class StoreContextModelSnapshot : ModelSnapshot

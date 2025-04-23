@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using velora.core.Data;
 
-namespace velora.repository.Data.configurations
+namespace velora.core.Data.configurations
 {
     internal class ProductConfigurations : IEntityTypeConfiguration<Product>
     {

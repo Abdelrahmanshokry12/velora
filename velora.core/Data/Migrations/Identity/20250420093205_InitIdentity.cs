@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace velora.repository.Migrations.Identity
+namespace velora.core.Migrations.Identity
 {
     /// <inheritdoc />
     public partial class InitIdentity : Migration

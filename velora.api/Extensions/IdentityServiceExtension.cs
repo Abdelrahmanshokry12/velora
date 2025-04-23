@@ -4,8 +4,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
 using velora.core.Entities.IdentityEntities;
+using velora.core.Data.Contexts;
+using velora.services.Services.Seeders;
+using velora.services.Services.TokenService;
 using velora.services.Services.AuthService;
-using velora.repository.Data.Contexts;
 
 namespace velora.api.Extensions
 {
@@ -31,13 +33,14 @@ namespace velora.api.Extensions
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = _configuration["Jwt:Issuer"],
-                        ValidAudience = _configuration["Jwt:Audience"],
+                        ValidIssuer = _configuration["Token:Issuer"],
+                        ValidAudience = _configuration["Token:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]))
                     };
                 });
 
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             return services;
         }

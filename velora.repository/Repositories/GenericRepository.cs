@@ -2,7 +2,7 @@
 using velora.core.Data;
 using velora.repository.Interfaces;
 using velora.repository.Specifications;
-using velora.repository.Data.Contexts;
+using velora.core.Data.Contexts;
 
 
 

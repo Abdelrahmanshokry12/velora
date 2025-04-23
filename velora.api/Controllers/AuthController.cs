@@ -4,65 +4,37 @@ using Microsoft.AspNetCore.Mvc;
 using velora.core.Entities.IdentityEntities;
 using velora.services.Services.AuthService;
 using velora.services.Services.AuthService.Dto;
+using velora.services.Services.TokenService;
 
 namespace velora.api.Controllers
 {
     public class AuthController : APIBaseController
     {
-        private readonly UserManager<Person> _userManager;
-        private readonly SignInManager<Person> _signInManager;
         private readonly IAuthService _authService;
 
-        public AuthController(UserManager<Person> userManager, SignInManager<Person> signInManager, IAuthService authService)
+        public AuthController(IAuthService authService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _authService = authService;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto dto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto , [FromQuery] Role role)
         {
-            var user = new Person
-            {
-                UserName = dto.Email,
-                Email = dto.Email,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName
-            };
+            var personDto = await _authService.RegisterAsync(registerDto ,role);
+            if (personDto == null)
+                return BadRequest("Email already exists or registration failed");
 
-            var result = await _userManager.CreateAsync(user, dto.Password);
-
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
-
-           
-            var role = string.IsNullOrWhiteSpace(dto.Role) ? "User" : dto.Role;
-            await _userManager.AddToRoleAsync(user, role);
-
-            return Ok($"User registered as {role}");
+            return Ok(personDto);
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto, [FromQuery] Role role)
         {
-            var user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null)
-                return Unauthorized("Invalid credentials");
+            var personDto = await _authService.LoginAsync(loginDto, role);
+            if (personDto == null)
+                return Unauthorized("Invalid email or password");
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-            if (!result.Succeeded)
-                return Unauthorized("Invalid credentials");
-
-            var token = await _authService.GenerateTokenAsync(user);
-            var roles = await _userManager.GetRolesAsync(user);
-
-            return Ok(new AuthResponseDto
-            {
-                Email = user.Email,
-                Role = roles.FirstOrDefault(),
-                Token = token
-            });
+            return Ok(personDto);
         }
     }
 }

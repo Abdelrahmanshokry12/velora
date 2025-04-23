@@ -16,5 +16,7 @@ namespace velora.services.Services.AuthService.Dto
 
         [Required]
         public string Password { get; set; }
+
+        //public Role Roles { get; set; }
     }
 }

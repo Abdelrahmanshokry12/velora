@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velora.core.Data;
 
-namespace velora.repository.Data.configurations
+
+namespace velora.core.Data.configurations
 {
     internal class ProductBrandConfigurations : IEntityTypeConfiguration<ProductBrand>
     {

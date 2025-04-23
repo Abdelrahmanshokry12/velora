@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Store.Repository.Interfaces;
 using velora.core.Data;
@@ -17,6 +18,13 @@ namespace velora.api.Controllers
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        [Authorize]
+        [HttpGet("test-auth")]
+        public IActionResult TestAuthorization()
+        {
+            return Ok("You are authorized!");
         }
 
         [HttpPost]

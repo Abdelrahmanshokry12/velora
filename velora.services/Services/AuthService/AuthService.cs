@@ -1,53 +1,87 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using velora.core.Entities.IdentityEntities;
+using velora.services.Services.AuthService.Dto;
+using velora.services.Services.TokenService;
 
 namespace velora.services.Services.AuthService
 {
+    public enum Role
+    {
+        User = 0,
+        Admin = 1,
+        Guest = 2
+    }
     public class AuthService : IAuthService
     {
+        private readonly SignInManager<Person> _signInManager;
         private readonly UserManager<Person> _userManager;
-        private readonly IConfiguration _config;
+        private readonly ITokenService _tokenService;
 
-        public AuthService(UserManager<Person> userManager, IConfiguration config)
+        public AuthService(SignInManager<Person> signInManager,
+                           UserManager<Person> userManager,
+                           ITokenService tokenService)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
-            _config = config;
+            _tokenService = tokenService;
         }
 
-        public async Task<string> GenerateTokenAsync(Person user)
+        public async Task<PersonDto> LoginAsync(LoginDto loginDto , Role role)
         {
-            var authClaims = new List<Claim>
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            if (user == null)
+                return null;
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            if (!result.Succeeded)
+                throw new Exception("Login failed");
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var userRole = userRoles.FirstOrDefault() ?? "User";
+
+            return new PersonDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Token = await _tokenService.GenerateTokenAsync(user),
+                Role = userRole
+            };
+        }
+
+        public async Task<PersonDto> RegisterAsync(RegisterDto registerDto , Role role)
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+            var existing = await _userManager.FindByEmailAsync(registerDto.Email);
+            if (existing != null)
+                return null;
 
-            var roles = await _userManager.GetRolesAsync(user);
-            authClaims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+            var person = new Person
+            {
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                Email = registerDto.Email,
+                UserName = registerDto.Email
+            };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var result = await _userManager.CreateAsync(person, registerDto.Password);
+            if (!result.Succeeded)
+                throw new Exception(result.Errors.First().Description);
 
-            var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Audience"],
-                expires: DateTime.Now.AddHours(3),
-                claims: authClaims,
-                signingCredentials: creds
-            );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            await _userManager.AddToRoleAsync(person, role.ToString());
+
+            return new PersonDto
+            {
+                Id = person.Id,
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                Email = person.Email,
+                Token = await _tokenService.GenerateTokenAsync(person),
+                Role = role.ToString()
+            };
         }
 
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using velora.repository.Specifications.ProductSpecs;
 using velora.services.Services.ProductService;
@@ -6,6 +7,7 @@ using velora.services.Services.ProductService.Dto;
 
 namespace velora.api.Controllers
 {
+    
     public class ProductsController : APIBaseController
     {
         private readonly IProductService _productService;

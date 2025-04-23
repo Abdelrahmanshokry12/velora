@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using velora.core.Data;
 
-namespace velora.repository.Data.configurations
+namespace velora.core.Data.configurations
 {
     internal class ProductTypeConfigurations : IEntityTypeConfiguration<ProductCategory>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Store.Repository.Interfaces;
-using velora.repository.Data.Contexts;
+using velora.core.Data.Contexts;
 using velora.repository.Interfaces;
 using velora.repository.Repositories;
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using velora.core.Entities.IdentityEntities;
 
-namespace velora.repository.Data.Contexts
+namespace velora.core.Data.Contexts
 {
     public class StoreIdentityDBContext : IdentityDbContext<Person>
     {

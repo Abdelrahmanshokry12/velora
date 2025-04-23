@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using velora.repository.Data.Contexts;
+using velora.repository;
+using velora.core.Data.Contexts;
 using velora.services.Services.Seeders;
 
 namespace velora.api.Helper
@@ -23,6 +24,8 @@ namespace velora.api.Helper
                     await StoreContextSeed.SeedAsync(context, loggerFactory);
 
                     await RoleSeeder.SeedRolesAsync(services);
+                    await UserSeeder.SeedDefaultUserAsync(services);
+
                 }
                 catch (Exception ex)
                 {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace velora.repository.Data.Migrations
+namespace velora.core.Data.Migrations
 {
     /// <inheritdoc />
     public partial class ProductsTable : Migration

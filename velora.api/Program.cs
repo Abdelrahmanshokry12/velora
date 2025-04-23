@@ -1,10 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using velora.api.Extensions;
-using velora.core.Data;
-using Microsoft.Extensions.Logging;
-using velora.repository.Data.Contexts;
-using velora.services.Services.Seeders;
+using velora.core.Data.Contexts;
 using velora.api.Helper;
+using System.Text.Json.Serialization;
 
 namespace velora.api
 {
@@ -16,7 +14,11 @@ namespace velora.api
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                  .AddJsonOptions(options =>
+                  {
+                      options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                  });
        
             builder.Services.AddDbContext<StoreContext>(Options =>
             {
@@ -47,10 +49,14 @@ namespace velora.api
                 app.UseSwaggerUI();
             }
 
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseRouting();
+        
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.MapControllers();
             app.Run();
         }

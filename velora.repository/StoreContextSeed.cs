@@ -2,8 +2,9 @@
 using System.Data;
 using System.Text.Json;
 using velora.core.Data;
+using velora.core.Data.Contexts;
 
-namespace velora.repository.Data.Contexts
+namespace velora.repository
 {
     public class StoreContextSeed
     {
@@ -16,7 +17,7 @@ namespace velora.repository.Data.Contexts
             {
                 if (!dbContext.ProductBrands.Any())
                 {
-                    var brandsData = await File.ReadAllTextAsync("../velora.repository/Data/DataSeed/brands.json");
+                    var brandsData = await File.ReadAllTextAsync("../velora.repository/SeedData/brands.json");
                     var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
                     if (brands?.Count > 0)
                     {
@@ -28,7 +29,7 @@ namespace velora.repository.Data.Contexts
 
                 if (!dbContext.ProductCategories.Any())
                 {
-                    var categoriesData = await File.ReadAllTextAsync("../velora.repository/Data/DataSeed/categories.json");
+                    var categoriesData = await File.ReadAllTextAsync("../velora.repository/SeedData/categories.json");
                     var categories = JsonSerializer.Deserialize<List<ProductCategory>>(categoriesData);
                     if (categories?.Count > 0)
                     {
@@ -40,7 +41,7 @@ namespace velora.repository.Data.Contexts
 
                 if (!dbContext.Products.Any())
                 {
-                    var productsData = await File.ReadAllTextAsync("../velora.repository/Data/DataSeed/products.json");
+                    var productsData = await File.ReadAllTextAsync("../velora.repository/SeedData/products.json");
                     var products = JsonSerializer.Deserialize<List<Product>>(productsData);
                     if (products?.Count > 0)
                     {
@@ -66,6 +67,6 @@ namespace velora.repository.Data.Contexts
             }
         }
     }
-} 
+}
 
 

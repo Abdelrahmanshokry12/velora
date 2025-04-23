@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using velora.repository.Data.Contexts;
+using velora.core.Data.Contexts;
 
 #nullable disable
 
 namespace velora.repository.Migrations.Identity
 {
     [DbContext(typeof(StoreIdentityDBContext))]
-    [Migration("20250420093205_InitIdentity")]
-    partial class InitIdentity
+    partial class StoreIdentityDBContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

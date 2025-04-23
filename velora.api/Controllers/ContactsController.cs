@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using velora.services.Services.ContactsService.Dto;
 using velora.services.Services.ContactsService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace velora.api.Controllers
 {
+    //[Authorize]
     public class ContactsController : APIBaseController
     {
         private readonly IContactsService _contactsService;

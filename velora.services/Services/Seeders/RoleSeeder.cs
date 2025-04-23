@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using velora.core.Entities.IdentityEntities;
 
 namespace velora.services.Services.Seeders
 {
     public static class RoleSeeder
     {
 
-        private static readonly List<string> Roles = new() { "Admin", "User", "Guest" };
+        private static readonly List<string> Roles = new() { "User", "Admin", "Guest" };
 
         public static async Task SeedRolesAsync(IServiceProvider serviceProvider)
         {
@@ -24,6 +25,7 @@ namespace velora.services.Services.Seeders
                 if (!await roleManager.RoleExistsAsync(role))
                 {
                     var result = await roleManager.CreateAsync(new IdentityRole(role));
+
                     if (!result.Succeeded)
                     {
                         var errors = string.Join(", ", result.Errors.Select(e => e.Description));
