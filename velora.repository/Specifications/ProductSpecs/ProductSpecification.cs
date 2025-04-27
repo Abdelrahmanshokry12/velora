@@ -46,5 +46,6 @@ namespace velora.repository.Specifications.ProductSpecs
             get => _skinType;
             set => _skinType = value?.Trim().ToLower();
         }
+        public string? Sort { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace velora.services.Services.AuthService
 {
     public interface IAuthService
     {
-        Task<PersonDto> LoginAsync(LoginDto loginDto, Role role);
-        Task<PersonDto> RegisterAsync(RegisterDto registerDto   , Role role);
+        Task<AuthResponseDto> LoginAsync(LoginDto loginDto, Role role);
+        Task<AuthResponseDto> RegisterAsync(RegisterDto registerDto);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using velora.core.Entities.IdentityEntities;
+using velora.services.Helper;
 using velora.services.Services.AuthService.Dto;
 using velora.services.Services.TokenService;
 
@@ -16,17 +18,20 @@ namespace velora.services.Services.AuthService
         private readonly SignInManager<Person> _signInManager;
         private readonly UserManager<Person> _userManager;
         private readonly ITokenService _tokenService;
+        private readonly IOptions<AuthSettings> _authSettings;
 
         public AuthService(SignInManager<Person> signInManager,
                            UserManager<Person> userManager,
-                           ITokenService tokenService)
+                           ITokenService tokenService,
+                              IOptions<AuthSettings> authSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _tokenService = tokenService;
+            _authSettings = authSettings;
         }
 
-        public async Task<PersonDto> LoginAsync(LoginDto loginDto , Role role)
+        public async Task<AuthResponseDto> LoginAsync(LoginDto loginDto , Role role)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
@@ -37,24 +42,35 @@ namespace velora.services.Services.AuthService
                 throw new Exception("Login failed");
 
             var userRoles = await _userManager.GetRolesAsync(user);
-            var userRole = userRoles.FirstOrDefault() ?? "User";
+            var actualRole = userRoles.FirstOrDefault();
 
-            return new PersonDto
+            if (actualRole == null || actualRole != role.ToString())
+                throw new Exception($"Access denied. You're not a {role}");
+
+
+            var token = await _tokenService.GenerateTokenAsync(user);
+
+            return new AuthResponseDto
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Token = await _tokenService.GenerateTokenAsync(user),
-                Role = userRole
+                Token = token,
+                Role = actualRole
             };
         }
 
-        public async Task<PersonDto> RegisterAsync(RegisterDto registerDto , Role role)
+        public async Task<AuthResponseDto> RegisterAsync(RegisterDto registerDto )
         {
             var existing = await _userManager.FindByEmailAsync(registerDto.Email);
             if (existing != null)
                 return null;
+
+            if (registerDto.Role == Role.Admin)
+            {
+                if (string.IsNullOrEmpty(registerDto.SecretCode) || registerDto.SecretCode != _authSettings.Value.AdminSecretCode)
+                {
+                    throw new Exception("Invalid admin registration code.");
+                }
+            }
+
 
             var person = new Person
             {
@@ -68,17 +84,13 @@ namespace velora.services.Services.AuthService
             if (!result.Succeeded)
                 throw new Exception(result.Errors.First().Description);
 
+            var roleName = registerDto.Role.ToString(); 
+            await _userManager.AddToRoleAsync(person, roleName);
 
-            await _userManager.AddToRoleAsync(person, role.ToString());
-
-            return new PersonDto
+            return new AuthResponseDto
             {
-                Id = person.Id,
-                FirstName = person.FirstName,
-                LastName = person.LastName,
-                Email = person.Email,
                 Token = await _tokenService.GenerateTokenAsync(person),
-                Role = role.ToString()
+                Role = roleName
             };
         }
 

@@ -13,6 +13,9 @@ namespace velora.services.Services.ProductService
         Task<List<ProductDto>> GetAllProductsAsync(ProductSpecification specParams);
         Task<ProductDto> GetProductByIdAsync(int id);
         Task<int> GetTotalCountAsync(ProductSpecification specParams);
-        //Task CreateProductAsync(ProductDto dto);
+        Task<bool> UpdateProductStockAsync(int productId, int stockQuantity);
+        Task<ProductDto> CreateProductAsync(ProductDto productDto);
+        Task<ProductDto> UpdateProductAsync(int id, ProductDto productDto);
+        Task<bool> DeleteProductAsync(int id);
     }
 }

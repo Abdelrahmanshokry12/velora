@@ -20,5 +20,6 @@ namespace velora.services.Services.ProductService.Dto
         public int SalesCount { get; set; }
         public bool IsBestSeller { get; set; }
         public DateTime CreatedAt { get; set; }
+        public int StockQuantity { get; set; }
     }
 }

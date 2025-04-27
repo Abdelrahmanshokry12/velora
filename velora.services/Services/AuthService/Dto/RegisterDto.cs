@@ -24,7 +24,7 @@ namespace velora.services.Services.AuthService.Dto
         ErrorMessage = "Password must be at least 6 characters long, contain at least 1 digit, 1 lowercase letter, 1 uppercase letter, 1 special character, and 2 unique characters.")]
         public string Password { get; set; }
 
-
-        //public Role Roles { get; set; } 
+        public Role Role { get; set; } = Role.User;
+        public string? SecretCode { get; set; }
     }
 }

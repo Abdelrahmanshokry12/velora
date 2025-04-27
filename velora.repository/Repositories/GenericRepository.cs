@@ -20,7 +20,7 @@ namespace velora.repository.Repositories
             return await _dbContext.Set<TEntity>().ToListAsync();
 
         }
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(TKey id)
         {
             return await _dbContext.Set<TEntity>().FindAsync(id);
         }
@@ -45,6 +45,15 @@ namespace velora.repository.Repositories
         public async Task<int> CountAsync(ISpecifications<TEntity> spec)
         {
             return await ApplySpecification(spec).CountAsync();
+        }
+        public void Update(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Update(entity);
+        }
+
+        public void Delete(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Remove(entity);
         }
     }
 }

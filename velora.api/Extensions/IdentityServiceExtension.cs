@@ -5,9 +5,6 @@ using System.Text;
 using System;
 using velora.core.Entities.IdentityEntities;
 using velora.core.Data.Contexts;
-using velora.services.Services.Seeders;
-using velora.services.Services.TokenService;
-using velora.services.Services.AuthService;
 
 namespace velora.api.Extensions
 {

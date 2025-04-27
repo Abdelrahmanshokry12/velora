@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Store.Repository.Interfaces;
@@ -20,13 +21,7 @@ namespace velora.api.Controllers
             _mapper = mapper;
         }
 
-        [Authorize]
-        [HttpGet("test-auth")]
-        public IActionResult TestAuthorization()
-        {
-            return Ok("You are authorized!");
-        }
-
+        [Authorize (AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> GetRecommendation([FromBody] TreatmentQuizDto quiz)
         {

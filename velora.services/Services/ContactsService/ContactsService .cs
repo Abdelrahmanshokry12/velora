@@ -6,10 +6,11 @@ using velora.core.Entites;
 using velora.services.Services.ContactsService.Dto;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
+using velora.services.Helper;
 
 namespace velora.services.Services.ContactsService
 {
-   
+
     public class ContactsService : IContactsService
     {
         private readonly IUnitWork _unitWork;

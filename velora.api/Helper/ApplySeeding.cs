@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using velora.repository;
 using velora.core.Data.Contexts;
-using velora.services.Services.Seeders;
+using velora.services.Seeders;
 
 namespace velora.api.Helper
 {

@@ -20,7 +20,32 @@ namespace velora.repository.Specifications.ProductSpecs
         {
             AddInclude(x => x.ProductBrand);
             AddInclude(x => x.ProductCategory);
-            AddOrderBy(x => x.Name);
+
+            if (!string.IsNullOrEmpty(specs.Sort))
+            {
+                switch (specs.Sort.ToLower())
+                {
+                    case "price":
+                        AddOrderBy(p => p.Price);
+                        break;
+                    case "priceDesc":
+                        AddOrderByDes(p => p.Price);
+                        break;
+                    case "stock":
+                        AddOrderBy(p => p.StockQuantity);
+                        break;
+                    case "stockdesc":
+                        AddOrderByDes(p => p.StockQuantity);
+                        break;
+                    default:
+                        AddOrderBy(p => p.Name);
+                        break;
+                }
+            }
+            else
+            {
+                AddOrderBy(p => p.Name); 
+            }
 
             if (!isForQuiz)
             {

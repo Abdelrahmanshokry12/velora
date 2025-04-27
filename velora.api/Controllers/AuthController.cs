@@ -19,9 +19,9 @@ namespace velora.api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto , [FromQuery] Role role)
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto )
         {
-            var personDto = await _authService.RegisterAsync(registerDto ,role);
+            var personDto = await _authService.RegisterAsync(registerDto );
             if (personDto == null)
                 return BadRequest(new CustomException(400, "Email already exists or registration failed"));
 

@@ -17,9 +17,8 @@ namespace velora.api.Controllers
             _productService = productService;
         }
 
-        // 🔎 Get All Products with Filtering, Paging
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] ProductSpecification filters)
+        public async Task<IActionResult> GetProducts([FromQuery] ProductSpecification filters)
         {
             var products = await _productService.GetAllProductsAsync(filters);
             var count = await _productService.GetTotalCountAsync(filters);
@@ -35,25 +34,25 @@ namespace velora.api.Controllers
             return Ok(response);
         }
 
-        // 🔍 Get Single Product by ID
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetProduct(int id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             if (product == null) return NotFound();
 
             return Ok(product);
         }
+        [HttpPut("update-stock/{id}")]
+        public async Task<IActionResult> UpdateProductStock(int id, [FromBody] int stockQuantity)
+        {
+            var success = await _productService.UpdateProductStockAsync(id, stockQuantity);
 
-        //// ✏️ Add New Product (optional - Admin panel)
-        //[HttpPost]
-        //public async Task<IActionResult> CreateProduct([FromBody] ProductDto dto)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+            if (!success)
+            {
+                return NotFound("Product not found.");
+            }
 
-        //    await _productService.CreateProductAsync(dto);
-        //    return StatusCode(201);
-        //}
+            return Ok("Product stock updated successfully.");
+        }
     }
 }

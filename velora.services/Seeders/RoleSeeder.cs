@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using velora.core.Entities.IdentityEntities;
 
-namespace velora.services.Services.Seeders
+namespace velora.services.Seeders
 {
     public static class RoleSeeder
     {

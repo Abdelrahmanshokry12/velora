@@ -44,16 +44,65 @@ namespace velora.services.Services.ProductService
             var countSpec = new ProductWithCountSpecification(specParams);
             return await repo.CountAsync(countSpec);
         }
+        public async Task<ProductDto> CreateProductAsync(ProductDto productDto)
+        {
+            var product = _mapper.Map<Product>(productDto);
 
-        //public async Task CreateProductAsync(ProductDto dto)
-        //{
-        //    var repo = _unitOfWork.Repository<Product, int>();
+            var productRepo = _unitOfWork.Repository<Product, int>();
+            await productRepo.AddAsync(product);
 
-        //    var product = _mapper.Map<Product>(dto);
-        //    product.CreatedAt = DateTime.UtcNow;
+            await _unitOfWork.CompleteAsync();
+            return _mapper.Map<ProductDto>(product);
+        }
 
-        //    await repo.AddAsync(product);
-        //    await _unitOfWork.CompleteAsync();
-        //}
+        public async Task<ProductDto> UpdateProductAsync(int id, ProductDto productDto)
+        {
+            var productRepo = _unitOfWork.Repository<Product, int>();
+            var product = await productRepo.GetByIdAsync(id);
+
+            if (product == null)
+            {
+                return null; 
+            }
+            _mapper.Map(productDto, product);
+
+            await _unitOfWork.CompleteAsync();
+
+            return _mapper.Map<ProductDto>(product);
+        }
+
+        public async Task<bool> UpdateProductStockAsync(int productId, int stockQuantity)
+        {
+            var productRepo = _unitOfWork.Repository<Product, int>();
+
+            var product = await productRepo.GetByIdAsync(productId);
+
+            if (product == null)
+            {
+                return false;
+            }
+
+            product.StockQuantity = stockQuantity;
+            await _unitOfWork.CompleteAsync();
+
+            return true;  
+        }
+
+        public async Task<bool> DeleteProductAsync(int id)
+        {
+            var productRepo = _unitOfWork.Repository<Product, int>();
+            var product = await productRepo.GetByIdAsync(id);
+
+            if (product == null)
+            {
+                return false;  
+            }
+            productRepo.Delete(product);
+ 
+            await _unitOfWork.CompleteAsync();
+
+            return true;  
+        }
+
     }
 }

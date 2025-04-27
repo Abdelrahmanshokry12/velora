@@ -28,13 +28,11 @@ namespace velora.services.Services.TokenService
         {
             var authClaims = new List<Claim>
             {
+              new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
               new Claim(ClaimTypes.Email, user.Email),
               new Claim(ClaimTypes.GivenName, user.FirstName),
-              new Claim("UserName" , user.UserName),
-              new Claim("UserId" , user.Id)
+              new Claim("UserName" , user.UserName)
             };
-
-            var creds = new SigningCredentials(_Key, SecurityAlgorithms.HmacSha256);
 
             var roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)
@@ -42,6 +40,7 @@ namespace velora.services.Services.TokenService
                 authClaims.Add(new Claim(ClaimTypes.Role, role));
             }
 
+            var creds = new SigningCredentials(_Key, SecurityAlgorithms.HmacSha256);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
