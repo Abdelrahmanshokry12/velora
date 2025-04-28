@@ -9,7 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using velora.core.Data;
 using velora.core.Entities.IdentityEntities;
+using velora.repository.Interfaces.IdentityInterfaces;
 using velora.repository.Specifications.ProductSpecs;
+using velora.Repository.Repositories;
 using velora.services.Services.AdminService.Dto;
 using velora.services.Services.AuthService.Dto;
 using velora.services.Services.ProductService;
@@ -18,16 +20,20 @@ using velora.services.Services.ProductService.Dto;
 namespace velora.services.Services.AdminService
 {
     public class AdminService : IAdminService
+
     {
-        private readonly IUnitWork _unitOfWork;
+
+        private readonly IUnitWork _unitWork;
+        private readonly IPersonRepository _personRepository;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
         private readonly UserManager<Person> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminService(IUnitWork unitOfWork, UserManager<Person> userManager, RoleManager<IdentityRole> roleManager, IProductService productService, IMapper mapper)
+        public AdminService(IUnitWork unitWork, IPersonRepository personRepository, UserManager<Person> userManager, RoleManager<IdentityRole> roleManager, IProductService productService, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _unitWork = unitWork;
+            _personRepository = personRepository;
             _userManager = userManager;
             _roleManager = roleManager;
             _productService = productService;
@@ -82,7 +88,7 @@ namespace velora.services.Services.AdminService
 
         //public async Task<IEnumerable<UserManagementDto>> GetAllUsersAsync()
         //{
-        //    var userRepository = _unitOfWork.PersonRepository(); 
+        //    var userRepository = _unitOfWork.Repository();
 
         //    // Fetch all users from the repository
         //    var users = await userRepository.GetAllAsync();

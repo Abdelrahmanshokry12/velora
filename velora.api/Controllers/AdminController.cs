@@ -105,7 +105,7 @@ namespace velora.api.Controllers
         //    return Ok(new { Message = "User activated successfully." });
         //}
 
-        //// List all users (Admin only)
+        // List all users (Admin only)
         //[HttpGet("get-users")]
         //public async Task<IActionResult> GetUsers()
         //{

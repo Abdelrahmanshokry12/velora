@@ -38,6 +38,18 @@ namespace velora.api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerDocumentation();
 
+
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend",
+                    builder => builder.WithOrigins("http://localhost:5173", "http://localhost:6916") // your frontend URL
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+            });
+
+        
+
             var app = builder.Build();
 
             await ApplySeeding.ApplySeedingAsync(app);
@@ -57,6 +69,8 @@ namespace velora.api
         
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCors("AllowFrontend");
 
             app.MapControllers();
             app.Run();
