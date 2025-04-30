@@ -3,6 +3,7 @@ using velora.core.Data;
 using velora.repository.Interfaces;
 using velora.repository.Specifications;
 using velora.core.Data.Contexts;
+using System.Linq.Expressions;
 
 
 
@@ -54,6 +55,11 @@ namespace velora.repository.Repositories
         public void Delete(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
+        }
+
+        public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbContext.Set<TEntity>().FirstOrDefaultAsync(predicate);
         }
     }
 }

@@ -35,20 +35,6 @@ namespace velora.Repository.Repositories
             }
             return (IGenericRepository<TEntity, Tkey>) _repositories[entityKey]; 
         }
-        //public IGenericRepository<Person, string> PersonRepository()
-        //{
-        //    if (_repositories == null)
-        //        _repositories = new Hashtable();
-
-        //    var entityKey = $"Person_{typeof(string).Name}";
-        //    if (!_repositories.ContainsKey(entityKey))
-        //    {
-        //        var repositoryType = typeof(GenericRepository<,>);
-        //        var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(Person), typeof(string)), _context);
-        //        _repositories.Add(entityKey, repositoryInstance);
-        //    }
-
-        //    return (IGenericRepository<Person, string>)_repositories[entityKey];
-        //}
+      
     }
 }

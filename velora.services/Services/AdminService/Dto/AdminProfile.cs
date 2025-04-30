@@ -24,9 +24,14 @@ namespace velora.services.Services.AdminService.Dto
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
 
             CreateMap<ProductDto, Product>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id)) 
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price));
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src => src.StockQuantity))
+                .ForMember(dest => dest.ProductBrand, opt => opt.Ignore())
+                .ForMember(dest => dest.ProductCategory, opt => opt.Ignore()); ;
+      
+
         }
     }
 }

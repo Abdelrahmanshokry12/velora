@@ -12,6 +12,7 @@ using velora.core.Entities.IdentityEntities;
 using velora.repository.Interfaces.IdentityInterfaces;
 using velora.repository.Specifications.ProductSpecs;
 using velora.Repository.Repositories;
+using velora.services.HandlerResponses;
 using velora.services.Services.AdminService.Dto;
 using velora.services.Services.AuthService.Dto;
 using velora.services.Services.ProductService;
@@ -40,7 +41,7 @@ namespace velora.services.Services.AdminService
             _mapper = mapper;
         }
 
-        public async Task<ProductDto> CreateProductAsync(ProductDto productDto)
+        public async Task<ApiResponse<ProductDto>> CreateProductAsync(ProductDto productDto)
         {
             return await _productService.CreateProductAsync(productDto);
         }

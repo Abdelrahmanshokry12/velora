@@ -13,6 +13,7 @@ namespace velora.repository.Specifications.ProductSpecs
         public string? Category { get; set; }
         public bool? IsBestSeller { get; set; }
         public bool? IsNewArrival { get; set; }
+        public string? Sort { get; set; }
 
         public int PageIndex { get; set; } = 1;
 
@@ -46,6 +47,6 @@ namespace velora.repository.Specifications.ProductSpecs
             get => _skinType;
             set => _skinType = value?.Trim().ToLower();
         }
-        public string? Sort { get; set; }
+
     }
 }

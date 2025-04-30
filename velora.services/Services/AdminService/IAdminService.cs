@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using velora.core.Data;
 using velora.core.Entities.IdentityEntities;
 using velora.repository.Specifications.ProductSpecs;
+using velora.services.HandlerResponses;
 using velora.services.Services.AdminService.Dto;
 using velora.services.Services.AuthService.Dto;
 using velora.services.Services.ProductService.Dto;
@@ -14,7 +15,7 @@ namespace velora.services.Services.AdminService
 {
     public interface IAdminService
     {
-        Task<ProductDto> CreateProductAsync(ProductDto productDto);
+        Task<ApiResponse<ProductDto>> CreateProductAsync(ProductDto productDto);
         Task<ProductDto> UpdateProductAsync(int id, ProductDto productDto);
         Task<bool> UpdateProductStockAsync(int productId, int stockQuantity);
         Task<bool> DeleteProductAsync(int id);

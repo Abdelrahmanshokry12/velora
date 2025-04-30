@@ -17,7 +17,14 @@ namespace velora.services.Services.ProductService.Dto
                     .ForMember(dest => dest.ProductBrand, opt => opt.MapFrom(src => src.ProductBrand.Name))
                     .ForMember(dest => dest.ProductCategory, opt => opt.MapFrom(src => src.ProductCategory.Name))
                     .ForMember(dest => dest.PictureUrl, options => options.MapFrom<ProductPictureUrlResolver>())
-                    .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src => src.StockQuantity));
+                    .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src => src.StockQuantity))
+                    .ReverseMap(); 
+
+
+
+            CreateMap<ProductDto, Product>()
+                .ForMember(dest => dest.ProductBrand, opt => opt.Ignore())
+                .ForMember(dest => dest.ProductCategory, opt => opt.Ignore());
         }
     }
 }

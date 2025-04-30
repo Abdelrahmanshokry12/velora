@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using velora.core.Data;
@@ -19,5 +20,6 @@ namespace velora.repository.Interfaces
         void Update(TEntity entity);
         void Delete(TEntity entity);
         Task<int> CountAsync(ISpecifications<TEntity> spec);
+        Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

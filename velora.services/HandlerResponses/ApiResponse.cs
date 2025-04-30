@@ -1,16 +1,22 @@
 ﻿
-namespace Store.Services.HandlerResponses
+namespace velora.services.HandlerResponses
 {
-    public class Response
+    public class ApiResponse<T>
     {
-        public Response(int statusCode, string? message = null)
-        {
-            StatusCode = statusCode;
-            Message = message ?? GetDefaultMessageForStatusCode(statusCode);
-        }
-
+        public T Data { get; set; }
         public int StatusCode { get; set; }
         public string Message { get; set; }
+        public bool Success { get; set; }
+        public ApiResponse(T data, bool success = true, int statusCode = 200, string? message = null)
+        {
+            Data = data;
+            Success = success;
+            StatusCode = statusCode;
+            Message = message ?? GetDefaultMessageForStatusCode(statusCode);
+
+        }
+
+ 
 
         private string GetDefaultMessageForStatusCode(int statusCode)
         => statusCode switch

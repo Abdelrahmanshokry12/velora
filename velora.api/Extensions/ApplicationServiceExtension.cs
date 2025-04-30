@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store.Repository.Interfaces;
-using Store.Services.HandlerResponses;
+using velora.services.HandlerResponses;
 using velora.repository.Interfaces;
 using velora.repository.Interfaces.IdentityInterfaces;
 using velora.repository.Repositories;

@@ -1,4 +1,4 @@
-﻿using Store.Services.HandlerResponses;
+﻿using velora.services.HandlerResponses;
 using System.Net;
 using System.Text.Json;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Store.Services.HandlerResponses;
+using velora.services.HandlerResponses;
 using velora.core.Entities.IdentityEntities;
 using velora.services.Services.AuthService;
 using velora.services.Services.AuthService.Dto;

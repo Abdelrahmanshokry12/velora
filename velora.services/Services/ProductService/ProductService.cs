@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Store.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using velora.core.Data;
 using velora.repository.Specifications.ProductSpecs;
+using velora.services.HandlerResponses;
 using velora.services.Services.ProductService.Dto;
+using StoreResponse = velora.services.HandlerResponses.ApiResponse<velora.services.Services.ProductService.Dto.ProductDto>;
 
 namespace velora.services.Services.ProductService
 {
@@ -44,16 +47,62 @@ namespace velora.services.Services.ProductService
             var countSpec = new ProductWithCountSpecification(specParams);
             return await repo.CountAsync(countSpec);
         }
-        public async Task<ProductDto> CreateProductAsync(ProductDto productDto)
+
+        //public async Task<ProductDto> CreateProductAsync(ProductDto dto)
+        //{
+        //    var repo = _unitOfWork.Repository<Product, int>();
+        //    var product = _mapper.Map<Product>(dto);
+        //    await repo.AddAsync(product);
+        //    await _unitOfWork.CompleteAsync();
+        //    return _mapper.Map<ProductDto>(product);
+        //}
+        //public async Task<ProductDto> CreateProductAsync(ProductDto productDto)
+        //{
+        //    var product = _mapper.Map<Product>(productDto);
+
+        //    var productRepo = _unitOfWork.Repository<Product, int>();
+        //    await productRepo.AddAsync(product);
+
+        //    await _unitOfWork.CompleteAsync();
+
+        //    return _mapper.Map<ProductDto>(product);
+        //}
+
+        public async Task<ApiResponse<ProductDto>> CreateProductAsync(ProductDto productDto)
         {
+            var brandRepo = _unitOfWork.Repository<ProductBrand, int>();
+            var brand = await brandRepo.GetAsync(b => b.Name.ToLower() == productDto.ProductBrand.ToLower());
+
+            if (brand == null)
+            {
+                brand = new ProductBrand { Name = productDto.ProductBrand };
+                await brandRepo.AddAsync(brand);
+                await _unitOfWork.CompleteAsync();
+            }
+
+            var CategoryRepo = _unitOfWork.Repository<ProductCategory, int>();
+            var Category = await CategoryRepo.GetAsync(t => t.Name.ToLower() == productDto.ProductCategory.ToLower());
+
+            if (Category == null)
+            {
+                Category = new ProductCategory { Name = productDto.ProductCategory };
+                await CategoryRepo.AddAsync(Category);
+                await _unitOfWork.CompleteAsync();
+            }
+
             var product = _mapper.Map<Product>(productDto);
+            product.ProductBrandId = brand.Id;
+            product.ProductCategoryId = Category.Id;
+            product.CreatedAt = DateTime.UtcNow;
 
             var productRepo = _unitOfWork.Repository<Product, int>();
             await productRepo.AddAsync(product);
-
             await _unitOfWork.CompleteAsync();
-            return _mapper.Map<ProductDto>(product);
+
+            return new StoreResponse(_mapper.Map<ProductDto>(product), success: true, statusCode: 201, message: "Product created successfully.");
         }
+
+
 
         public async Task<ProductDto> UpdateProductAsync(int id, ProductDto productDto)
         {

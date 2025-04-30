@@ -1,5 +1,5 @@
 ﻿
-namespace Store.Services.HandlerResponses
+namespace velora.services.HandlerResponses
 {
     public class ValidationErrorResponse : CustomException
     {
