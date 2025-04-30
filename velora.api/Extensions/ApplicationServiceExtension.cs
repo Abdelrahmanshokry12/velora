@@ -16,6 +16,11 @@ using velora.services.Services.ProductService;
 using velora.services.Services.ProductService.Dto;
 using velora.services.Services.TokenService;
 using velora.services.Services.UserService;
+using velora.services.Services.CartService.Dto;
+using velora.services.Services.CartService;
+using velora.repository.Cart.Interface;
+using velora.repository.Cart;
+using velora.services.CacheService;
 
 namespace velora.api.Extensions
 {
@@ -28,13 +33,17 @@ namespace velora.api.Extensions
             services.Configure<AuthSettings>(configuration.GetSection("AuthSettings"));
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IContactsService, ContactsService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICartService, CartService>();
             services.AddAutoMapper(typeof(ContactsProfile));
             services.AddAutoMapper(typeof(ProductProfile).Assembly);
             services.AddAutoMapper(typeof(AdminProfile).Assembly);
+            services.AddAutoMapper(typeof(CartProfile).Assembly);
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IUserService, UserService>();
 

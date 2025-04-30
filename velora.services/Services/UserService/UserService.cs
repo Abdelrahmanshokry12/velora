@@ -1,15 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Store.Repository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using velora.core.Entities.IdentityEntities;
 using velora.repository.Interfaces.IdentityInterfaces;
-using velora.repository.Repositories.IdentityRepos;
-using velora.services.Services.AuthService.Dto;
 using velora.services.Services.UserService.Dto;
 
 namespace velora.services.Services.UserService

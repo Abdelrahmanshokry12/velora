@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using velora.core.Entites;
+using velora.core.Entities;
 
 
 namespace velora.core.Data.Contexts
@@ -20,6 +21,7 @@ namespace velora.core.Data.Contexts
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Contacts> ContactsMessages { get; set; }
+        public DbSet<DeliveryMethods> DeliveryMethods { get; set; }
 
 
 

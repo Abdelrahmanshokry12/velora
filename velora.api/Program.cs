@@ -3,6 +3,8 @@ using velora.api.Extensions;
 using velora.core.Data.Contexts;
 using velora.api.Helper;
 using System.Text.Json.Serialization;
+using Store.Web.MiddleWares;
+using StackExchange.Redis;
 
 namespace velora.api
 {
@@ -13,7 +15,6 @@ namespace velora.api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers()
                   .AddJsonOptions(options =>
                   {
@@ -39,11 +40,17 @@ namespace velora.api
             builder.Services.AddSwaggerDocumentation();
 
 
+            builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
+            {
+                var configurations = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(configurations);
+            });
+
 
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowFrontend",
-                    builder => builder.WithOrigins("http://localhost:5173", "http://localhost:6916") // your frontend URL
+                    builder => builder.WithOrigins("http://localhost:5173") // your frontend URL
                                       .AllowAnyHeader()
                                       .AllowAnyMethod());
             });
@@ -61,16 +68,16 @@ namespace velora.api
                 app.UseSwaggerUI();
             }
 
-
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-        
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseCors("AllowFrontend");
+
+            app.UseAuthentication();
+            app.UseAuthorization();   
 
             app.MapControllers();
             app.Run();

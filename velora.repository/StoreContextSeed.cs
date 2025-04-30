@@ -3,6 +3,7 @@ using System.Data;
 using System.Text.Json;
 using velora.core.Data;
 using velora.core.Data.Contexts;
+using velora.core.Entities;
 
 namespace velora.repository
 {
@@ -48,6 +49,19 @@ namespace velora.repository
                         await dbContext.Products.AddRangeAsync(products);
                         hasChanges = true;
                         logger.LogInformation("Seeded products.");
+                    }
+                }
+
+                if (!dbContext.DeliveryMethods.Any())
+                {
+                    var deliveryMethodsdata = await File.ReadAllTextAsync("../velora.repository//SeedData//delivery.json");
+                    var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethods>>(deliveryMethodsdata);
+
+                    if (deliveryMethods is not null)
+                    {
+                        await dbContext.DeliveryMethods.AddRangeAsync(deliveryMethods);
+                        hasChanges = true;
+                        logger.LogInformation("Seeded DeliveryMethods.");
                     }
                 }
 

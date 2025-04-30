@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using velora.api.Helper;
 using velora.repository.Specifications.ProductSpecs;
 using velora.services.Services.ProductService;
 using velora.services.Services.ProductService.Dto;
@@ -18,6 +19,7 @@ namespace velora.api.Controllers
         }
 
         [HttpGet]
+        [Cache(10)]
         public async Task<IActionResult> GetProducts([FromQuery] ProductSpecification filters)
         {
             var products = await _productService.GetAllProductsAsync(filters);
